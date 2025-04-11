@@ -32,16 +32,21 @@ void solve(int tc)
         int x;
         cin >> x;
         auto it = st.upper_bound(x);
-        
-            if (*it <= x + k && *it != -1) {
-                t = 1;
-                st.erase(it);
-            } else if (*it >= x - k && *it != -1) {
-                it--;
-                if (*it >= x - k && *it != -1)
+        auto it1 = st.lower_bound(x);
+
+        if (*it <= x + k && *it != -1)
+        {
+            t = 1;
+            st.erase(it);
+        }
+            
+            
+            else if (*it1 >= x - k && *it1 != -1) {
+                
+                if (*it1 >= x - k && *it1 != -1)
                 {
                     t = 1;
-                    st.erase(it);
+                    st.erase(it1);
                 }
             } if (t == 1) {
                 cnt++;
@@ -50,7 +55,9 @@ void solve(int tc)
         
     }
     cout << cnt << endl;
-}
+        // cout << *it << endl;
+    }
+
 
 int main()
 {
