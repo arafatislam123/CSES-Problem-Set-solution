@@ -17,54 +17,56 @@ void solve(int tc)
 {
     int n, m, k;
     cin >> n >> m >> k;
-    multiset<int> st;
-    for (int i = 0; i < n; i++)
+    vector<int> app(n);
+    for (int i = 0; i < n;i++)
     {
-        int x;
-        cin >> x;
-        st.insert(x);
+        cin >> app[i];
     }
-    st.insert(-1);
-    int cnt = 0;
-    int t = -1;
-    while (m--)
-    {
-        int x;
-        cin >> x;
-        auto it = st.upper_bound(x);
-        auto it1 = st.lower_bound(x);
-
-        if (*it <= x + k && *it != -1)
+        vector<int> am(m);
+        for (int i = 0; i < m; i++)
         {
-            t = 1;
-            st.erase(it);
+            cin >> am[i];
         }
-            
-            
-            else if (*it1 >= x - k && *it1 != -1) {
-                
-                if (*it1 >= x - k && *it1 != -1)
-                {
-                    t = 1;
-                    st.erase(it1);
-                }
-            } if (t == 1) {
-                cnt++;
-            }
+        sort(app.begin(), app.end());
+    //     for (int i = 0; i < n; i++)
+    //     {
+    //         cout << app[i] << " ";
+    //     }
+    // cout << nl;
+    sort(am.begin(), am.end());
+    // for (int j = 0; j < n; j++)
+    // {
+    //     cout << am[j] << " ";
+    // }
+    // cout << nl;
 
-        
-    }
-    cout << cnt << endl;
-        // cout << *it << endl;
-    }
-
+    int cnt = 0;
+    int i = 0, j = 0;
+    while (i < n && j < m)
+    {
+      if(abs(app[i]-am[j])<=k)
+      {
+        cnt++;
+        i++;
+        j++;
+      }
+      else if(app[i]+k<am[j])
+      {
+          i++;
+      }
+      else{
+          j++;
+      }
+   }
+   cout << cnt << nl;
+}
 
 int main()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
+ ios_base::sync_with_stdio(0);
+  cin.tie(0);
     int tc = 1;
-    // cin >> tc;
+    //cin >> tc;
 
     for (int i = 1; i <= tc; i++)
         solve(i);
